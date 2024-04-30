@@ -1,5 +1,11 @@
 steps:
-- name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/image-creator', '-f', './Dockerfile', '.' ]
-images:
-- 'gcr.io/$PROJECT_ID/image-creator'
+    - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'bash'
+    args:
+        - '-c'
+        - |
+          gcloud config set app/cloud_build_timeout 3600 \
+          && gcloud app deploy -q --promote -v=$BUILD_ID \
+          --project=$PROJECT_ID
+
+timeout: '3600s'
