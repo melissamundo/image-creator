@@ -9,3 +9,6 @@ steps:
         --project=$PROJECT_ID
 
 timeout: '3600s'
+
+options:
+  logging: NONE
